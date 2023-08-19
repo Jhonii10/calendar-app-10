@@ -7,25 +7,18 @@ import { addHours } from "date-fns";
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 import { getMessage, localizer } from "../../helpers";
 import { useState } from "react";
+import { useUiStore, useCalendarStore} from "../../hooks";
 
 
 
-const events = [
-  {
-    title: 'cumpleaños del jefe',
-    notes: 'hay que comprar el pastel',
-    start: new Date(),
-    end: addHours(new Date(), 2),
-    bgColor: '#fafafa',
-    user:{
-        _id:'123',
-        name:'jhoni'
-    }
-  }
-];
+
+
 
 export const CalendarPage = () => {
 
+    const {events} = useCalendarStore()
+    console.log(events);
+    const {openDateModal} = useUiStore()
     const [lastView, setLastView] = useState(localStorage.getItem('lastview','agenda'));
 
     console.log({lastView});
@@ -45,6 +38,7 @@ export const CalendarPage = () => {
     }
 
     const onDoubleClick = (event)=>{
+      openDateModal()
         console.log({doubleClick: event});
     }
 
