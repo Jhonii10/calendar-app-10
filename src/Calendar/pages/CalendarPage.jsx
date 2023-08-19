@@ -1,13 +1,12 @@
 /* eslint-disable no-unused-vars */
 
-import { CalendarEvent, CalendarModal, Navbar } from "../components";
+import { CalendarEvent, CalendarModal, FabAddNew, Navbar } from "../components";
 import { Calendar } from 'react-big-calendar';
-
-import { addHours } from "date-fns";
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 import { getMessage, localizer } from "../../helpers";
 import { useState } from "react";
 import { useUiStore, useCalendarStore} from "../../hooks";
+import { FabDelete } from "../components/FabDelete";
 
 
 
@@ -16,16 +15,13 @@ import { useUiStore, useCalendarStore} from "../../hooks";
 
 export const CalendarPage = () => {
 
-    const {events} = useCalendarStore()
-    console.log(events);
-    const {openDateModal} = useUiStore()
+    const {events,setActiveEvent} = useCalendarStore()
+
+    const {openDateModal,} = useUiStore()
     const [lastView, setLastView] = useState(localStorage.getItem('lastview','agenda'));
 
-    console.log({lastView});
     const eventsStyleGetter = (event,start,end,isSelected)=>{
         
-
-    
         const style = {
             backgroundColor : '#347CF7',
             borderRadius:'0px',
@@ -39,11 +35,10 @@ export const CalendarPage = () => {
 
     const onDoubleClick = (event)=>{
       openDateModal()
-        console.log({doubleClick: event});
     }
 
     const onSelect = (event)=>{
-        console.log({click: event});
+      setActiveEvent(event)
     }
     
     const onViewChange = (event)=>{
@@ -76,6 +71,8 @@ export const CalendarPage = () => {
         onView={onViewChange}
       />
       <CalendarModal/>
+      <FabAddNew/>
+      <FabDelete/>
     </>
   );
 }
