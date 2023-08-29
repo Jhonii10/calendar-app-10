@@ -16,9 +16,11 @@ import { FabDelete } from "../components/FabDelete";
 export const CalendarPage = () => {
 
     const {events,setActiveEvent} = useCalendarStore()
+    
 
     const {openDateModal,} = useUiStore()
-    const [lastView, setLastView] = useState(localStorage.getItem('lastview','agenda'));
+    const [ lastView, setLastView ] = useState(localStorage.getItem('lastView') || 'week' );
+
 
     const eventsStyleGetter = (event,start,end,isSelected)=>{
         
@@ -33,6 +35,8 @@ export const CalendarPage = () => {
         }
     }
 
+    
+
     const onDoubleClick = (event)=>{
       openDateModal()
     }
@@ -46,17 +50,16 @@ export const CalendarPage = () => {
         setLastView(lastView)
     }
 
-
-
+    
   return (
     <>
       <Navbar/>
       <Calendar
-        culture="es"
-        localizer={localizer}
-        events={events}
-        defaultView={lastView}
-        startAccessor="start"
+      culture="es"
+      localizer={localizer}
+      events={events}
+      defaultView={lastView}
+      startAccessor="start"
         endAccessor="end"
         style={{ height: 'calc(100vh - 80px)' }}
         messages={getMessage()}
@@ -69,7 +72,8 @@ export const CalendarPage = () => {
         onDoubleClickEvent={onDoubleClick}
         onSelectEvent={onSelect}
         onView={onViewChange}
-      />
+    />
+      
       <CalendarModal/>
       <FabAddNew/>
       <FabDelete/>
