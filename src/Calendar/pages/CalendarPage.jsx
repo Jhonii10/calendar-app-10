@@ -7,6 +7,7 @@ import { getMessage, localizer } from "../../helpers";
 import { useState } from "react";
 import { useUiStore, useCalendarStore} from "../../hooks";
 import { FabDelete } from "../components/FabDelete";
+import { useEffect } from "react";
 
 
 
@@ -15,7 +16,7 @@ import { FabDelete } from "../components/FabDelete";
 
 export const CalendarPage = () => {
 
-    const {events,setActiveEvent} = useCalendarStore()
+    const {events,setActiveEvent,startLoginEvents} = useCalendarStore()
     
 
     const {openDateModal,} = useUiStore()
@@ -35,7 +36,9 @@ export const CalendarPage = () => {
         }
     }
 
-    
+    useEffect(() => {
+      startLoginEvents()
+    }, []);
 
     const onDoubleClick = (event)=>{
       openDateModal()
@@ -49,6 +52,8 @@ export const CalendarPage = () => {
         localStorage.setItem('lastview',event);
         setLastView(lastView)
     }
+
+    
 
     
   return (
