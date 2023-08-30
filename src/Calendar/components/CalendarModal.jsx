@@ -6,12 +6,13 @@ import "react-datepicker/dist/react-datepicker.css";
 
 import es from 'date-fns/locale/es';
 import Swal from 'sweetalert2';
-import { useCalendarStore, useUiStore } from '../../hooks';
+import {  useCalendarStore, useUiStore } from '../../hooks';
 
 
 registerLocale('es', es)
 
 export const CalendarModal = () => {
+
 
     const {isDateModalOpen, closeDateModal} = useUiStore()
     const {activeEvent, startSavingEvent}= useCalendarStore()
@@ -80,6 +81,7 @@ export const CalendarModal = () => {
         if (formValue.title.length <= 0) return;
 
         // todo:
+        
         await startSavingEvent(formValue)
         closeDateModal();
         
