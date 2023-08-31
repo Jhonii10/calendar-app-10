@@ -1,26 +1,20 @@
+/* eslint-disable react/no-unescaped-entities */
 import { useEffect } from 'react';
 import { useAuthStore, useForm } from '../../hooks';
 import './loginPage.css';
 import Swal from 'sweetalert2';
+import { Link } from 'react-router-dom';
 
 const loginFormFields ={
     loginEmail: '',
     loginPassword:'',
 }
 
-const registerFormFields ={
-    registerName: '',
-    registerEmail:'',
-    registerPassword: '',
-    registerPassword2:'',
-}
-
 export const LoginPage = () => {
 
-    const {startLogin,startRegister, errormessage} = useAuthStore()
+    const {startLogin, errormessage} = useAuthStore()
 
     const {loginEmail , loginPassword , onInputChange: onLoginInputChange,} =useForm(loginFormFields);
-    const {registerName , registerEmail ,registerPassword , registerPassword2, onInputChange: onRegisterInputChange,} =useForm(registerFormFields);
 
     const loginSubmit = (event)=>{
         event.preventDefault();
@@ -28,18 +22,6 @@ export const LoginPage = () => {
         startLogin({email:loginEmail,password:loginPassword})
     }
 
-
-    const registerSubmit = (event)=>{
-        event.preventDefault();
-        if (registerPassword !== registerPassword2) {
-            Swal.fire('Error en el registro', 'Las contraseñas no coinciden','error')
-            return;
-        }
-
-        startRegister({name:registerName , email:registerEmail ,password:registerPassword })
-
-        console.log({registerName , registerEmail ,registerPassword , registerPassword2})
-    }
 
 
     useEffect(() => {
@@ -49,26 +31,39 @@ export const LoginPage = () => {
     }, [errormessage]);
 
     return (
-        <div className="container d-flex justify-content-center align-items-center" style={{height:'100vh'}}>
-            <div className="row">
-                <div className="col-md-6 login-form-1">
-                    <h3>Ingreso</h3>
+        <div className=" bodddy " >
+<div className="video-bg">
+<video width={320} height={240} autoPlay loop muted>
+    <source
+      src="https://assets.codepen.io/3364143/7btrrd.mp4"
+      type="video/mp4"
+    />
+    Your browser does not support the video tag.
+  </video></div>
+            <div className="row ">
+                <div className="login-form-1 app">
+                <div className="header">
+  <div className="menu-circle" />
+  <div className="header-Page">
+        <h2>Login</h2>
+    </div>
+</div>
                     <form onSubmit={loginSubmit}>
                         <div className="form-group mb-2">
                             <input 
                                 type="text"
-                                className="form-control"
-                                placeholder="Correo"
+                                className="input-10"
+                                placeholder="Email"
                                 name="loginEmail"   
                                 value={loginEmail}
                                 onChange={onLoginInputChange}
                             />
                         </div>
-                        <div className="form-group mb-2">
+                        <div className="form-label mb-2">
                             <input
                                 type="password"
-                                className="form-control"
-                                placeholder="Contraseña"
+                                className="input-10"
+                                placeholder="Password"
                                 name="loginPassword"
                                 value={loginPassword}
                                 onChange={onLoginInputChange}
@@ -78,66 +73,21 @@ export const LoginPage = () => {
                             <input 
                                 type="submit"
                                 className="btnSubmit"
-                                value="Login"
+                                value="Sign In"
                             />
+                        </div>
+
+
+                        <div className="form-group mb-2">
+                            <span>
+                                <p>Don't have an account</p>
+                                <Link to={'register'} className='link-10'>Sign Up</Link>
+                            </span>
                         </div>
                     </form>
                 </div>
 
-                <div className="col-md-6 login-form-2">
-                    <h3>Registro</h3>
-                    <form onSubmit={registerSubmit}>
-                        <div className="form-group mb-2">
-                            <input
-                                type="text"
-                                className="form-control"
-                                placeholder="Nombre"
-                                name="registerName"   
-                                value={registerName}
-                                onChange={onRegisterInputChange}
-                            />
-                        </div>
-                        <div className="form-group mb-2">
-                            <input
-                                type="email"
-                                className="form-control"
-                                placeholder="Correo"
-                                name="registerEmail"   
-                                value={registerEmail}
-                                onChange={onRegisterInputChange}
-                            />
-                        </div>
-                        <div className="form-group mb-2">
-                            <input
-                                type="password"
-                                className="form-control"
-                                placeholder="Contraseña" 
-                                name="registerPassword"   
-                                value={registerPassword}
-                                onChange={onRegisterInputChange}
-                            />
-                        </div>
-
-                        <div className="form-group mb-2">
-                            <input
-                                type="password"
-                                className="form-control"
-                                placeholder="Repita la contraseña" 
-                                name="registerPassword2"   
-                                value={registerPassword2}
-                                onChange={onRegisterInputChange}
-                            />
-                        </div>
-
-                        <div className="form-group mb-2">
-                            <input 
-                                type="submit" 
-                                className="btnSubmit" 
-                                value="Crear cuenta" />
-                        </div>
-                    </form>
                 </div>
-            </div>
         </div>
     )
 }
