@@ -7,7 +7,7 @@ export const FabAddNew = () => {
     const {user} = useAuthStore()
 
     const {openDateModal}= useUiStore()
-    const {setActiveEvent} = useCalendarStore()
+    const {setActiveEvent } = useCalendarStore()
     
     const handleClikNew = ()=>{
         setActiveEvent({
